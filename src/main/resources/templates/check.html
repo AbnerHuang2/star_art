@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>star-art 邮箱验证</title>
+</head>
+<body>
+    <h2 th:text="${username}+', 你好:'"></h2>
+    <h5>欢迎加入star-art</h5>
+    <p th:text=" '您的验证码是'+${checkCode}"></p>
+    <p>请尽快完成验证</p>
+</body>
+</html>
