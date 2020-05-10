@@ -2,6 +2,7 @@ package com.star.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.star.constant.EntityType;
 import com.star.mapper.CommentDao;
 import com.star.model.entity.Comment;
 import com.star.model.vo.CommentVo;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +21,17 @@ import java.util.List;
 @Service
 public class CommentService {
 
-    @Autowired
+    @Resource
     CommentDao commentDao;
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    NewsService newsService;
+
+    @Autowired
+    CourseService courseService;
 
     String Sort_default = "comment_createtime desc";
 
@@ -38,8 +46,15 @@ public class CommentService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("entityId",entityId);
         criteria.andEqualTo("entityType",entityType);
-
+        criteria.andEqualTo("commentStatus",1);
         List<Comment> list = commentDao.selectByExample(example);
+        PageInfo<Comment> commentPageInfo = new PageInfo<>(list);
+        //将评论总数设置到相应的entity中
+        switch (entityType){
+            case 1 : newsService.updateNewsComment(entityId,(int)commentPageInfo.getTotal());
+            case 2 : courseService.updateCourseComment(entityId,(int)commentPageInfo.getTotal());
+        }
+
         List<CommentVo> commentVos = new ArrayList<>();
 
         for(Comment comment : list){
@@ -51,7 +66,25 @@ public class CommentService {
         }
 
         PageInfo<CommentVo> pageInfo = new PageInfo<>(commentVos);
+        pageInfo.setTotal(commentPageInfo.getTotal());
+
         return pageInfo;
+    }
+
+    public boolean addComment(Comment comment){
+        int res = commentDao.insert(comment);
+        if(res==1){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteCommentById(Long id){
+        int res = commentDao.deleteByPrimaryKey(id);
+        if(res==1){
+            return true;
+        }
+        return false;
     }
 
 }

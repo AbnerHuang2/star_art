@@ -69,14 +69,14 @@ public class RecommandService {
     public List<JSONObject> getRecommendByUser(Long uid, int size,String table,String userIdColumn,String itemIdColumn, String valueColumn, String timeColumn) {
         List<JSONObject> resList = new ArrayList();
         try {
-            String server = url.substring(url.indexOf("//") + 2, url.lastIndexOf(":"));
-            String database = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("?"));
+            //String server = url.substring(url.indexOf("//") + 2, url.lastIndexOf(":"));
+            //String database = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("?"));
             //权重计算使用数据库中的值，也可以使用文件形式
             MysqlDataSource dataSource = new MysqlDataSource();
-            dataSource.setServerName(server);
+            dataSource.setURL(url);
             dataSource.setUser(user);
             dataSource.setPassword(pass);
-            dataSource.setDatabaseName(database);
+            //dataSource.setDatabaseName(database);
             DataModel model = new MySQLJDBCDataModel(dataSource,table, userIdColumn,itemIdColumn,valueColumn,timeColumn);
             // 指定用户相似度计算方法，这里采用皮尔森相关度
             UserSimilarity similarity = new PearsonCorrelationSimilarity(model);

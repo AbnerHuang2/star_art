@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Condition;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class CourseService {
     @Autowired
     HostHolder hostHolder;
 
-    @Autowired
+    @Resource
     CourseDao courseDao;
 
     @Autowired
@@ -311,6 +312,17 @@ public class CourseService {
         return courseDao.insert(course);
     }
 
+    public boolean updateCourseComment(long courseId,int commentNum){
+        Course course = courseDao.selectByPrimaryKey(courseId);
+        if(course!=null){
+            course.setCommentNum(commentNum);
+            int res = courseDao.updateByPrimaryKey(course);
+            if(res == 1 ){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

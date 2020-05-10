@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class NewsService {
     @Autowired
     HostHolder hostHolder;
 
-    @Autowired
+    @Resource
     NewsDao newsDao;
 
     @Autowired
@@ -116,6 +117,26 @@ public class NewsService {
             }
         }
         return  -1;
+    }
+
+    public boolean addNews(News news){
+        int res = newsDao.insert(news);
+        if(res==1){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateNewsComment(Long newsId,int commentNum){
+        News news = getNewsById(newsId);
+        if(news != null){
+            news.setNewsComment(commentNum);
+            int result = newsDao.updateByPrimaryKey(news);
+            if(result==1){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

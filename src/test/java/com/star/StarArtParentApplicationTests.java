@@ -59,8 +59,8 @@ class StarArtParentApplicationTests {
 
     @Test
     void testCommentService(){
-        PageInfo<CommentVo> pageInfo= commentService.getComments(1l,1,null,1,4);
-        System.out.println(pageInfo.getList());
+        PageInfo<CommentVo> pageInfo= commentService.getComments(1l,1,null,2,4);
+        System.out.println(pageInfo);
     }
 
     @Test

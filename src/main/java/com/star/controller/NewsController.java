@@ -12,9 +12,13 @@ import com.star.service.LikeService;
 import com.star.service.NewsService;
 import com.star.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @Author Abner
@@ -77,6 +81,36 @@ public class NewsController {
             return CommonResult.success("取消点赞成功","取消点赞成功");
         }
         return CommonResult.failed("取消点赞失败");
+    }
+
+    @RequestMapping("/addNews")
+    public CommonResult<News> addNews(String newsTitle, String newsContent,String newsIntro){
+        if(hostHolder.getUser()==null){
+            return CommonResult.failed("请先登录");
+        }
+        News news = new News();
+        news.setNewsTitle(newsTitle);
+        news.setNewsContent(newsContent);
+
+        if(StringUtils.isEmpty(newsIntro)){
+            news.setNewsIntro(newsContent);
+        }else{
+            news.setNewsIntro(newsIntro);
+        }
+
+        news.setNewsLike(0);
+        news.setNewsComment(0);
+        news.setNewsShare(0);
+        Date date=new Date();
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        news.setNewsCreatetime(df.format(date));
+        news.setBelongId(hostHolder.getUser().getId());
+        news.setNewsStatus('1');
+        boolean res = newsService.addNews(news);
+        if(res){
+            return CommonResult.success(news,"信息发布成功");
+        }
+        return CommonResult.failed("信息发布失败");
     }
 
 }
