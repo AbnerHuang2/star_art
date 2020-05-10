@@ -53,7 +53,7 @@ public class NewsService {
             newsVo.setUser(userService.getUserById(news.getBelongId()));
             if(hostHolder.getUser()!=null){
                 User u = hostHolder.getUser();
-                newsVo.setLikeStatus(likeService.getlikeStatus(u.getId(), EntityType.Entity_News,news.getId()));
+                newsVo.setLikeStatus(likeService.getlikeStatus(u.getId(), EntityType.Entity_News.getType(),news.getId()));
             }
 
             newsVos.add(newsVo);
@@ -89,7 +89,7 @@ public class NewsService {
     }
 
     public long like(Long newsId){
-        long res = likeService.like(hostHolder.getUser().getId(),EntityType.Entity_News,newsId);
+        long res = likeService.like(hostHolder.getUser().getId(),EntityType.Entity_News.getType(),newsId);
         if(res>0){
             News news = getNewsById(newsId);
             if(news != null){
@@ -104,7 +104,7 @@ public class NewsService {
     }
 
     public long unlike(Long newsId){
-        boolean res = likeService.unlike(hostHolder.getUser().getId(),EntityType.Entity_News,newsId);
+        boolean res = likeService.unlike(hostHolder.getUser().getId(),EntityType.Entity_News.getType(),newsId);
         if(res){
             News news = getNewsById(newsId);
             if(news != null){

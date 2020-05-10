@@ -10,23 +10,19 @@ import javax.persistence.Table;
 
 /**
  * @Author Abner
- * @CreateDate 2020/4/27
+ * @CreateDate 2020/5/9
  */
-@Table(name = "star_news")
+@Table(name = "star_comment")
 @Data
 @ToString
-public class News {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "JDBC")
     Long id;
-    String newsTitle;
-    String newsIntro;
-    String newsContent;
-    Integer newsLike;
-    Integer newsComment;
-    Integer newsShare;
-    String newsTags;
-    String newsCreatetime;
-    Character newsStatus;
-    Long belongId;
+    Long userId;
+    Long entityId;
+    Integer entityType;
+    String commentContent;
+    String commentCreatetime;
+    String commentStatus;
 }

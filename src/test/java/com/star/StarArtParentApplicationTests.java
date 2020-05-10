@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.star.constant.RedisConstant;
 import com.star.mapper.CourseDao;
 import com.star.model.entity.*;
+import com.star.model.vo.CommentVo;
 import com.star.model.vo.HomeStartVo;
 import com.star.model.vo.NewsVo;
 import com.star.service.*;
@@ -52,7 +53,16 @@ class StarArtParentApplicationTests {
 
     @Autowired
     HomeService homeService;
-    
+
+    @Autowired
+    CommentService commentService;
+
+    @Test
+    void testCommentService(){
+        PageInfo<CommentVo> pageInfo= commentService.getComments(1l,1,null,1,4);
+        System.out.println(pageInfo.getList());
+    }
+
     @Test
     void testHomeService(){
         List<HomeStartVo> list = homeService.getHomeStart();
@@ -76,7 +86,7 @@ class StarArtParentApplicationTests {
 
     @Test
     void testProductService(){
-        PageInfo<Product> pageInfo = productService.getProducts(1,4,null,1l,null);
+        PageInfo<Product> pageInfo = productService.getProducts(1,4,null,1l,null,null);
 
         System.out.println(pageInfo.getList());
     }

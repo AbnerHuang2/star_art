@@ -24,9 +24,10 @@ public class ProductController {
     ProductService productService;
 
     @RequestMapping("/getProducts")
-    public CommonResult<PageInfo<Product>> getProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8")int pageSize, Long majorId, Long directId){
+    public CommonResult<PageInfo<Product>> getProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8")int pageSize,
+                                                       Long majorId, Long directId,String tag){
         PageInfo<Product> pageInfo = null;
-        pageInfo = productService.getProducts(page,pageSize,null,majorId,directId);
+        pageInfo = productService.getProducts(page,pageSize,null,majorId,directId,tag);
         if(pageInfo!=null){
             return CommonResult.success(pageInfo,"获取作品成功");
         }

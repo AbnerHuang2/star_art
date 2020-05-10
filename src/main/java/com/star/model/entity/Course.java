@@ -23,18 +23,18 @@ public class Course {
     Long teacherId;
     String intro;
     @Column(name = "cost")
-    float cost;
+    Float cost;
     @Column(name = "chapter_num")
-    int  chapterNum;
-    int totalHours;
+    Integer  chapterNum;
+    Integer totalHours;
     @Column(name = "pub_time")
     String pubTime;
     @Column(name = "stu_num")
-    int stuNum;
+    Integer stuNum;
     @Column(name = "follow_num")
-    int followNum;
+    Integer followNum;
     @Column(name = "comment_num")
-    int commentNum;
+    Integer commentNum;
     String tags;
     @Column(name = "direct_id")
     Long directId;

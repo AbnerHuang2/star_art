@@ -33,7 +33,7 @@ public class ProductService {
         return null;
     }
 
-    public PageInfo<Product> getProducts(int page, int pageSize,String sort,Long majorId,Long directId){
+    public PageInfo<Product> getProducts(int page, int pageSize,String sort,Long majorId,Long directId,String tag){
         PageHelper.startPage(page,pageSize);
         Example example = new Example(Product.class);
         Example.Criteria criteria = example.createCriteria();
@@ -43,6 +43,10 @@ public class ProductService {
         if(directId!=null){
             criteria.andEqualTo("directId",directId);
         }
+        if(tag != null){
+            criteria.andLike("productTag","%"+tag+"%");
+        }
+
         //设置排序方式
         if(!StringUtils.isEmpty(sort)) {
             example.setOrderByClause(sort);

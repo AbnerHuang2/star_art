@@ -28,4 +28,13 @@ public class UserController {
         return CommonResult.failed("获取人气选手失败");
     }
 
+    @RequestMapping("/getUser")
+    public CommonResult<User> getUser(Long id){
+        User user = userService.getUserById(id);
+        if(user!=null){
+            return CommonResult.success(user,"获取用户成功");
+        }
+        return CommonResult.failed("获取用户失败");
+    }
+
 }

@@ -90,13 +90,6 @@
             <version>2.1.5</version>
         </dependency>
 
-        <!--java mail (利用java发送邮件工具，后面改用了spring mail)-->
-        <!--<dependency>-->
-            <!--<groupId>com.sun.mail</groupId>-->
-            <!--<artifactId>javax.mail</artifactId>-->
-            <!--<version>${javax.mail.version}</version>-->
-        <!--</dependency>-->
-
         <!--springboot-mail 发送邮件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

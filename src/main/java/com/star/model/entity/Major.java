@@ -21,6 +21,6 @@ public class Major {
     String majorName;
 
     @Column(name = "major_direct_num")
-    int majorDirectNum;
+    Integer majorDirectNum;
 
 }

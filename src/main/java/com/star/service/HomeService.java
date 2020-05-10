@@ -70,7 +70,7 @@ public class HomeService {
             list.add(vo1);
         }
         List<Product> productList = productService.getProducts
-                (1,2,"product_like desc",null,null)
+                (1,2,"product_like desc",null,null,null)
                 .getList();
         if(productList.size()>0){
             HomeStartVo vo1 = new HomeStartVo();

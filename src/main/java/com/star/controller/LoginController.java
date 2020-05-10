@@ -62,14 +62,15 @@ public class LoginController {
     }
 
     @RequestMapping("/logout")
-    public void logout(){
+    public CommonResult<String> logout(){
         //思路：让token失效
         User user = hostHolder.getUser();
         if(user!=null){
             String token = tokenService.generateToken(user.getId()+"");
             tokenService.delToken(token);
+            return CommonResult.success("已退出");
         }
-        return ;
+        return CommonResult.failed("操作失败");
     }
 
     @RequestMapping("/reg/checkEmail")

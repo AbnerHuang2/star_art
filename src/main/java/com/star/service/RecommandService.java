@@ -26,6 +26,10 @@ import java.util.List;
  * @Author Abner
  * @CreateDate 2020/5/4
  */
+
+/**
+ * 智能推荐服务
+ */
 @Service
 public class RecommandService {
 
