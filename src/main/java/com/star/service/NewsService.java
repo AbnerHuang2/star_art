@@ -47,6 +47,7 @@ public class NewsService {
             example.setOrderByClause(Sort_default);
         }
         List<News> list = newsDao.selectByExample(example);
+        PageInfo<News> newsPageInfo = new PageInfo<>(list);
         List<NewsVo> newsVos = new ArrayList<>(list.size());
         for(News news : list){
             NewsVo newsVo = new NewsVo();
@@ -60,6 +61,12 @@ public class NewsService {
             newsVos.add(newsVo);
         }
         PageInfo<NewsVo> pageInfo = new PageInfo<>(newsVos);
+        pageInfo.setTotal(newsPageInfo.getTotal());
+        pageInfo.setPageNum(newsPageInfo.getPageNum());
+        pageInfo.setPageSize(newsPageInfo.getPageSize());
+        pageInfo.setHasNextPage(newsPageInfo.isHasNextPage());
+        pageInfo.setIsLastPage(newsPageInfo.isIsLastPage());
+        pageInfo.setPages(newsPageInfo.getPages());
 
         return pageInfo;
     }

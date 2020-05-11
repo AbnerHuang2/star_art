@@ -84,7 +84,7 @@ public class NewsController {
     }
 
     @RequestMapping("/addNews")
-    public CommonResult<News> addNews(String newsTitle, String newsContent,String newsIntro){
+    public CommonResult<News> addNews(String newsTitle, @RequestParam("newsContent") String newsContent,String newsIntro){
         if(hostHolder.getUser()==null){
             return CommonResult.failed("请先登录");
         }

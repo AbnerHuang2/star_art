@@ -48,12 +48,10 @@ public class FileController {
 
 				randomUUID = randomUUID.replaceAll("-", "");
 
-				System.out.println(randomUUID+"."+suffix);
 				File dir = new File(fileDirPath);
                 if(!dir.exists()){//如果文件夹不存在
                     dir.mkdir();//创建文件夹
                 }
-                System.out.println(fileDirPath);
 				//将图片保存到本地
 				StreamUtils.copy(file.getInputStream(),
 						new FileOutputStream(new File(fileDirPath,randomUUID+"."+suffix)));
@@ -71,11 +69,8 @@ public class FileController {
 
     @RequestMapping("/getImage")
     public void getImage(HttpServletResponse response, @RequestParam("name")String img) {
-
-        System.out.println(img);
         //从本地获取图片
 		try {
-
 			response.setContentType("image/jpeg");
 
 			StreamUtils.copy(new FileInputStream(new File(fileDirPath,img)),
