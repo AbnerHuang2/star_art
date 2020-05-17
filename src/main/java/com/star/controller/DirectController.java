@@ -27,4 +27,21 @@ public class DirectController {
         }
         return CommonResult.failed("获取相关专业方向失败");
     }
+    @RequestMapping("/getUserDirects")
+    public CommonResult<List<Direction>> getUserDirects(String userDirects){
+        List<Direction> list =  directService.getUserDirects(userDirects);
+        if(list!=null && list.size()>0){
+            return CommonResult.success(list,"获取用户专业方向成功");
+        }
+        return CommonResult.failed("获取用户专业方向失败");
+    }
+    @RequestMapping("/getRestDirects")
+    public CommonResult<List<Direction>> getRestDirects(String userDirects){
+        System.out.println(userDirects);
+        List<Direction> list =  directService.getRestDirects(userDirects);
+        if(list!=null && list.size()>0){
+            return CommonResult.success(list,"获取用户专业方向成功");
+        }
+        return CommonResult.failed("获取用户专业方向失败");
+    }
 }

@@ -4,6 +4,7 @@ import com.star.model.api.CommonResult;
 import com.star.model.entity.User;
 import com.star.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,18 @@ public class UserController {
             return CommonResult.success(user,"获取用户成功");
         }
         return CommonResult.failed("获取用户失败");
+    }
+
+    @RequestMapping(value = "/updateUserInfo" , produces = "application/json;charset=UTF-8")
+    public CommonResult<User> updateUserInfo(@RequestBody User user){
+        System.out.println(user);
+        if(user!=null){
+            boolean res = userService.updateUserInfo(user);
+            if(res){
+                return CommonResult.success(user,"更新用户信息成功");
+            }
+        }
+        return CommonResult.failed("更新用户信息失败");
     }
 
 }

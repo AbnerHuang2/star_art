@@ -7,6 +7,7 @@ import com.star.model.entity.*;
 import com.star.model.vo.CommentVo;
 import com.star.model.vo.HomeStartVo;
 import com.star.model.vo.NewsVo;
+import com.star.model.vo.SelectCourseVo;
 import com.star.service.*;
 import com.star.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +32,7 @@ class StarArtParentApplicationTests {
     @Autowired
     RedisUtil redisUtil;
 
-    @Autowired
+    @Resource
     CourseDao courseDao;
 
     @Autowired
@@ -56,6 +58,24 @@ class StarArtParentApplicationTests {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    DirectService directService;
+
+    @Autowired
+    SelectCourseService selectCourseService;
+
+    @Test
+    void testSelectCourseService(){
+        PageInfo<SelectCourseVo> pageInfo = selectCourseService.getSelectCourseByUserId(1l,1,2);
+        System.out.println(pageInfo);
+    }
+
+    @Test
+    void testDirectService(){
+        List<Direction> list = directService.getUserDirects("1;2;");
+        System.out.println(list);
+    }
 
     @Test
     void testCommentService(){

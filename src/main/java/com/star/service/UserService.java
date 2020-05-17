@@ -11,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
 @Service
 public class UserService {
-    @Autowired
+    @Resource
     UserDao userDao;
 
     @Autowired
@@ -79,4 +80,11 @@ public class UserService {
         return userDao.selectByPrimaryKey(id);
     }
 
+    public boolean updateUserInfo(User user){
+        if(user!=null){
+            int res = userDao.updateByPrimaryKey(user);
+            return res==1 ? true : false;
+        }
+        return false;
+    }
 }

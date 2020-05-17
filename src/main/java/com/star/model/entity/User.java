@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Table(name="star_user")
 @Data
@@ -35,7 +36,7 @@ public class User implements Serializable {
     String userSex;
 
     @Column(name = "userBirth")
-    String userBirth;
+    Date userBirth;
 
     @Column(name = "userIntro")
     String userIntro;

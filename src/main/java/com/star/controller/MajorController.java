@@ -28,4 +28,13 @@ public class MajorController {
         return CommonResult.failed("获取相关专业失败");
     }
 
+    @RequestMapping("/getMajorById")
+    public CommonResult<Major> getMajorById(Long majorId){
+        Major major = majorService.getMajorById(majorId);
+        if(major!=null){
+            return CommonResult.success(major,"获取专业成功");
+        }
+        return CommonResult.failed("获取专业失败");
+    }
+
 }

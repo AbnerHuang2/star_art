@@ -37,5 +37,6 @@ public class CourseController {
         }
         return CommonResult.failed("获取课程失败");
     }
+    
 
 }

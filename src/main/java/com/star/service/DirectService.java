@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ import java.util.List;
  */
 @Service
 public class DirectService {
-    @Autowired
+    @Resource
     DirectDao directDao;
 
     public List<Direction> getAllDirect(){
@@ -29,6 +31,49 @@ public class DirectService {
         Example example = new Example(Direction.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("majorId",majorId);
+        return directDao.selectByExample(example);
+    }
+
+    public List<Direction> getUserDirects(String userDirects){
+        if(userDirects==null){
+            return null;
+        }
+        String[] directs_str = userDirects.split(";");
+        List<Integer> directs = new ArrayList<>();
+        for(String di : directs_str){
+            try{
+                directs.add(Integer.valueOf(di));
+            }catch (Exception e){
+                continue;
+            }
+        }
+        Example example = new Example(Direction.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andIn("id",directs);
+        return directDao.selectByExample(example);
+    }
+
+    /**
+     * 获取用户没有选择的
+     * @param userDirects
+     * @return
+     */
+    public List<Direction> getRestDirects(String userDirects){
+        if(userDirects==null){
+            return null;
+        }
+        String[] directs_str = userDirects.split(";");
+        List<Integer> directs = new ArrayList<>();
+        for(String di : directs_str){
+            try{
+                directs.add(Integer.valueOf(di));
+            }catch (Exception e){
+                continue;
+            }
+        }
+        Example example = new Example(Direction.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andNotIn("id",directs);
         return directDao.selectByExample(example);
     }
 
