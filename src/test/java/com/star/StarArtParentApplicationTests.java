@@ -67,7 +67,7 @@ class StarArtParentApplicationTests {
 
     @Test
     void testSelectCourseService(){
-        PageInfo<SelectCourseVo> pageInfo = selectCourseService.getSelectCourseByUserId(1l,1,2);
+        PageInfo<SelectCourseVo> pageInfo = selectCourseService.getSelectCourseByUserId(1L,1,2);
         System.out.println(pageInfo);
     }
 
@@ -79,7 +79,7 @@ class StarArtParentApplicationTests {
 
     @Test
     void testCommentService(){
-        PageInfo<CommentVo> pageInfo= commentService.getComments(1l,1,null,2,4);
+        PageInfo<CommentVo> pageInfo= commentService.getComments(1L,1,null,2,4);
         System.out.println(pageInfo);
     }
 
@@ -106,14 +106,14 @@ class StarArtParentApplicationTests {
 
     @Test
     void testProductService(){
-        PageInfo<Product> pageInfo = productService.getProducts(1,4,null,1l,null,null);
+        PageInfo<Product> pageInfo = productService.getProducts(1,4,null,1L,null,null);
 
         System.out.println(pageInfo.getList());
     }
 
     @Test
     void testChapterService(){
-        List<Chapter> list = chapterService.getChapterByCourseId(1l);
+        List<Chapter> list = chapterService.getChapterByCourseId(1L);
         System.out.println(list);
     }
 

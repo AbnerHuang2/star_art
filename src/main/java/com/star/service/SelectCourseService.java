@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Abner
- * @CreateDate 2020/5/15
+ * @author Abner
+ * @createDate 2020/5/15
  */
 @Service
 public class SelectCourseService {
@@ -33,14 +33,12 @@ public class SelectCourseService {
         PageInfo<SelectCourse> scPageInfo = new PageInfo<>(list);
 
         List<SelectCourseVo> vos = new ArrayList<>();
-        if(list!=null){
-            for(SelectCourse sc : list){
-                SelectCourseVo vo = new SelectCourseVo();
-                vo.setSelectCourse(sc);
-                vo.setCourse(courseService.getCourseById(sc.getCourseId()));
+        for(SelectCourse sc : list){
+            SelectCourseVo vo = new SelectCourseVo();
+            vo.setSelectCourse(sc);
+            vo.setCourse(courseService.getCourseById(sc.getCourseId()));
 
-                vos.add(vo);
-            }
+            vos.add(vo);
         }
         PageInfo<SelectCourseVo> pageInfo = new PageInfo<>(vos);
         pageInfo.setPages(scPageInfo.getPages());

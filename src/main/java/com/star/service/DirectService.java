@@ -2,6 +2,7 @@ package com.star.service;
 
 import com.star.mapper.DirectDao;
 import com.star.model.entity.Direction;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author Abner
- * @CreateDate 2020/4/15
+ * @author Abner
+ * @createDate 2020/4/15
  */
 @Service
+@Log4j2
 public class DirectService {
     @Resource
     DirectDao directDao;
@@ -44,7 +46,7 @@ public class DirectService {
             try{
                 directs.add(Integer.valueOf(di));
             }catch (Exception e){
-                continue;
+                log.error("字符串转整数失败");
             }
         }
         Example example = new Example(Direction.class);
@@ -68,7 +70,7 @@ public class DirectService {
             try{
                 directs.add(Integer.valueOf(di));
             }catch (Exception e){
-                continue;
+                log.error("字符串转整数失败");
             }
         }
         Example example = new Example(Direction.class);
