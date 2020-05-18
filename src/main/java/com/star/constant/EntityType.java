@@ -6,7 +6,8 @@ package com.star.constant;
  */
 public enum EntityType {
     Entity_News(1),
-    Entity_Course(2);
+    Entity_Course(2),
+    Entity_User(3);
 
     int type;
 

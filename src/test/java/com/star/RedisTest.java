@@ -1,5 +1,7 @@
 package com.star;
 
+import com.star.constant.EntityType;
+import com.star.service.FollowService;
 import com.star.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Author Abner
@@ -16,6 +19,21 @@ import java.util.List;
 public class RedisTest {
     @Autowired
     RedisUtil redisUtil;
+
+    @Autowired
+    FollowService followService;
+
+    @Test
+    void testFollowService(){
+        boolean res = followService.follow(1L, EntityType.Entity_Course.getType(),2L);
+        System.out.println(res);
+
+        Set<Long> set = followService.getFans(3,3L);
+        System.out.println(set);
+
+        Set<Long> set2 = followService.getFollowPeople(1L);
+        System.out.println(set2);
+    }
 
     @Test
     void TestString(){

@@ -73,10 +73,16 @@ public class CourseService {
         //添加美术专业推荐
         Major art = majorService.getMajorByName("美术专业");
         artCourseList = getCourseByMajorAndDirectListAndPage(art.getId(),directList,page, pageSize);
+        if(artCourseList.size()<pageSize){
+            artCourseList.addAll(getCourseByMajorAndPage(1L,1,pageSize-musicCourseList.size()));
+        }
         homeCourseResult.setArtCourseList(artCourseList);
         //添加音乐专业推荐
         Major music = majorService.getMajorByName("音乐专业");
         musicCourseList = getCourseByMajorAndDirectListAndPage(music.getId(),directList,page, pageSize);
+        if(musicCourseList.size()<pageSize){
+            musicCourseList.addAll(getCourseByMajorAndPage(2L,1,pageSize-musicCourseList.size()));
+        }
         homeCourseResult.setMusicCourseList(musicCourseList);
 
         return homeCourseResult;
@@ -140,6 +146,7 @@ public class CourseService {
      * 利用协同过滤算法推荐课程
      * @param uid
      * @param size
+     * @param type 推荐类型，基于用户(1)还是基于物品(2)
      * @return
      */
     public List<Course> getRecommandCourses(Long uid,int size,int type){

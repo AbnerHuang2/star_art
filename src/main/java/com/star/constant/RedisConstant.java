@@ -16,16 +16,26 @@ public class RedisConstant {
     //Like业务
     public static String BIZ_LIKE = "STAR_LIKE";
 
+    //关注业务
+    public static String BIZ_FOLLOW = "STAR_FOLLOW";
+
+    //粉丝业务
+    public static String BIZ_FANS = "STAR_FANS";
+
     public static String getCheckcodeKey(String email){
         return BIZ_CHECKCODE+SPLIT+email;
     }
 
-    public static String getTokenKey(Long userId){
-        return BIZ_TOKEN+SPLIT+userId;
-    }
-
     public  static String getLikeKey(int entityType,Long entityId){
         return BIZ_LIKE+SPLIT+entityType+SPLIT+entityId;
+    }
+
+    public  static String getFollowKey(int entityType,Long entityId){
+        return BIZ_FOLLOW+SPLIT+entityType+SPLIT+entityId;
+    }
+
+    public  static String getFANSKey(int entityType,Long entityId){
+        return BIZ_FANS+SPLIT+entityType+SPLIT+entityId;
     }
 
 }
