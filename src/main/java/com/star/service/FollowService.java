@@ -3,6 +3,7 @@ package com.star.service;
 import com.star.constant.EntityType;
 import com.star.constant.RedisConstant;
 import com.star.mapper.FollowDao;
+import com.star.model.entity.User;
 import com.star.utils.RedisUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class FollowService {
 
     @Autowired
     RedisUtil redisUtil;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 关注业务
@@ -60,7 +64,7 @@ public class FollowService {
      * @param entityId
      * @return
      */
-    public Set<Long> getFans(int entityType,Long entityId){
+    public List<User> getFans(int entityType,Long entityId){
         String key = RedisConstant.getFANSKey(entityType,entityId);
         Set<Object> set =  redisUtil.sGet(key);
         Set<Long> resSet = new HashSet<>();
@@ -72,7 +76,8 @@ public class FollowService {
                 log.error("获取关注时格式转换错误");
             }
         }
-        return resSet;
+        List<User> fansList = userService.getUserByCollection(resSet);
+        return fansList;
     }
 
     /**
@@ -80,7 +85,7 @@ public class FollowService {
      * @param entityId
      * @return
      */
-    public Set<Long> getFollowPeople(Long entityId){
+    public List<User> getFollowPeople(Long entityId){
         String key = RedisConstant.getFollowKey(EntityType.Entity_User.getType(),entityId);
         Set<Object> set =  redisUtil.sGet(key);
         Set<Long> resSet = new HashSet<>();
@@ -97,7 +102,8 @@ public class FollowService {
                 }
             }
         }
-        return resSet;
+        List<User> followList = userService.getUserByCollection(resSet);
+        return followList;
     }
 
     /**
@@ -119,6 +125,21 @@ public class FollowService {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 查看用户是否关注了某个用户，或者课程等
+     * 思路：
+     *  从该用户的关注列表中，查看是否含有该entityType：entityId
+     * @param userId
+     * @param entityType
+     * @param entityId
+     * @return
+     */
+    public boolean getFollowStatus(Long userId,int entityType, Long entityId){
+        String key = RedisConstant.getFollowKey(EntityType.Entity_User.getType(),userId);
+        boolean res = redisUtil.sHasKey(key,String.valueOf(entityType+":"+entityId));
+        return res;
     }
 
 }

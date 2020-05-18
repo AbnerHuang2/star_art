@@ -154,7 +154,7 @@ class StarArtParentApplicationTests {
 //        User user = userService.getUserByEmail("1101964585@qq.com");
 //        System.out.println(user);
 
-        List<User> list = userService.getHotUsers();
+        List<User> list = userService.getHotUsers(1,5);
         System.out.println(list);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -68,16 +69,26 @@ public class UserService {
         return userDao.insert(user);
     }
 
-    public List<User> getHotUsers(){
-        PageHelper.startPage(1,4);
+    public List<User> getHotUsers(int page,int pageSize){
+        PageHelper.startPage(page,pageSize);
         Example example = new Example(User.class);
         example.setOrderByClause("userFansCount desc");
-        example.createCriteria().andEqualTo("status",RoleConstant.Role_Student);
+        //example.createCriteria().andEqualTo("status",RoleConstant.Role_Student);
         return userDao.selectByExample(example);
     }
 
     public User getUserById(Long id){
         return userDao.selectByPrimaryKey(id);
+    }
+
+    public List<User> getUserByCollection(Iterable values){
+        if(values==null || !values.iterator().hasNext()){
+            return null;
+        }
+        Example example = new Example(User.class);
+        example.createCriteria().andIn("id",values);
+
+        return userDao.selectByExample(example);
     }
 
     public boolean updateUserInfo(User user){

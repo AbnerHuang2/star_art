@@ -6,6 +6,7 @@ import com.star.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,8 +22,9 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/getHotUsers")
-    public CommonResult<List<User>> getHotUsers(){
-        List<User> list = userService.getHotUsers();
+    public CommonResult<List<User>> getHotUsers(@RequestParam(defaultValue = "1") int page,
+                                                @RequestParam(defaultValue = "5")int pageSize){
+        List<User> list = userService.getHotUsers(page,pageSize);
         if(list!=null && list.size()>0){
             return CommonResult.success(list,"获取人气选手成功");
         }

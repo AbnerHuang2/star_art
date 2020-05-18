@@ -1,6 +1,7 @@
 package com.star;
 
 import com.star.constant.EntityType;
+import com.star.model.entity.User;
 import com.star.service.FollowService;
 import com.star.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
@@ -25,14 +26,16 @@ public class RedisTest {
 
     @Test
     void testFollowService(){
-        boolean res = followService.follow(1L, EntityType.Entity_Course.getType(),2L);
-        System.out.println(res);
+//        boolean res = followService.follow(1L, EntityType.Entity_Course.getType(),2L);
+//        System.out.println(res);
+//
+//        List<User> set = followService.getFans(3,3L);
+//        System.out.println(set);
 
-        Set<Long> set = followService.getFans(3,3L);
-        System.out.println(set);
+//        List<User> set2 = followService.getFollowPeople(8L);
+//        System.out.println(set2);
 
-        Set<Long> set2 = followService.getFollowPeople(1L);
-        System.out.println(set2);
+        System.out.println(followService.getFollowStatus(3L,3,1L));
     }
 
     @Test
