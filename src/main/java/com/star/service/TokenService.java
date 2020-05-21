@@ -8,6 +8,7 @@ import com.star.utils.StarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -22,7 +23,7 @@ public class TokenService {
     @Autowired
     RedisUtil redisUtil;
 
-    @Autowired
+    @Resource
     UserDao userDao;
 
     //生成token(格式为 STAR_TOKEN:加密的data-时间-六位随机数)(目前data是用户id)

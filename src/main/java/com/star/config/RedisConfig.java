@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -18,8 +19,13 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.lang.reflect.Method;
 import java.time.Duration;
 
+/**
+ * 配置redis连接与缓存设置
+ *
+ */
 @Configuration
 @EnableCaching//启用缓存，这个注解很重要；
 //继承CachingConfigurerSupport，为了自定义生成KEY的策略。可以不继承。
@@ -52,6 +58,20 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.afterPropertiesSet();
         return template;
     }
+
+    /**
+     * 自定义 Cache 的 key 生成器
+     */
+    @Bean("getCacheKey")
+    public KeyGenerator getKeyGenerator (){
+        return new KeyGenerator() {
+            @Override
+            public Object generate(Object obj, Method method, Object... objects) {
+                return "KeyGenerator:"+method.getName();
+            }
+        } ;
+    }
+
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();

@@ -23,7 +23,7 @@ public class UserController {
 
     @RequestMapping("/getHotUsers")
     public CommonResult<List<User>> getHotUsers(@RequestParam(defaultValue = "1") int page,
-                                                @RequestParam(defaultValue = "5")int pageSize){
+                                                @RequestParam(defaultValue = "4")int pageSize){
         List<User> list = userService.getHotUsers(page,pageSize);
         if(list!=null && list.size()>0){
             return CommonResult.success(list,"获取人气选手成功");
@@ -42,10 +42,9 @@ public class UserController {
 
     @RequestMapping(value = "/updateUserInfo" , produces = "application/json;charset=UTF-8")
     public CommonResult<User> updateUserInfo(@RequestBody User user){
-        System.out.println(user);
         if(user!=null){
-            boolean res = userService.updateUserInfo(user);
-            if(res){
+            User res = userService.updateUserInfo(user);
+            if(res!=null){
                 return CommonResult.success(user,"更新用户信息成功");
             }
         }

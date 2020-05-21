@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class TeacherService {
     @Autowired
     HostHolder hostHolder;
 
-    @Autowired
+    @Resource
     UserDao userDao;
 
     public List<User> getRecommandTeachers(int page, int pageSize){
