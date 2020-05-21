@@ -51,8 +51,10 @@ public class CommentService {
         PageInfo<Comment> commentPageInfo = new PageInfo<>(list);
         //将评论总数设置到相应的entity中
         switch (entityType){
-            case 1 : newsService.updateNewsComment(entityId,(int)commentPageInfo.getTotal());
-            case 2 : courseService.updateCourseComment(entityId,(int)commentPageInfo.getTotal());
+            case 1 : newsService.updateNewsComment(entityId,(int)commentPageInfo.getTotal());break;
+            case 2 : courseService.updateCourseComment(entityId,(int)commentPageInfo.getTotal());break;
+
+            default:break;
         }
 
         List<CommentVo> commentVos = new ArrayList<>();

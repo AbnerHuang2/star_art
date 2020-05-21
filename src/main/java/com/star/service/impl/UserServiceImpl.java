@@ -79,7 +79,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(value = "hotUsers", key = "methodName")
     public List<User> getHotUsers(int page, int pageSize){
-        System.err.println("hotUsers");
         PageHelper.startPage(page,pageSize);
         Example example = new Example(User.class);
         example.setOrderByClause("userFansCount desc");
@@ -89,7 +88,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(value = "user", key = "#id")
     public User getUserById(Long id){
-        System.err.println("getUserById");
         return userDao.selectByPrimaryKey(id);
     }
     @Override

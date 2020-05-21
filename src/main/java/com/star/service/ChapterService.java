@@ -14,17 +14,8 @@ import java.util.List;
  * @Author Abner
  * @CreateDate 2020/4/27
  */
-@Service
-public class ChapterService {
+public interface ChapterService {
 
-    @Resource
-    ChapterDao chapterDao;
-
-    public List<Chapter> getChapterByCourseId(Long courseId){
-        Example example = new Example(Chapter.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("courseId",courseId);
-        return chapterDao.selectByExample(example);
-    }
+    public List<Chapter> getChapterByCourseId(Long courseId);
 
 }

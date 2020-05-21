@@ -7,31 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @Author Abner
  * @CreateDate 2020/4/15
  */
-@Service
-public class MajorService {
+public interface MajorService {
 
-    @Autowired
-    MajorDao majorDao;
+    public List<Major> getAllMajor();
 
-    public List<Major> getAllMajor(){
-        return majorDao.selectAll();
-    }
+    public Major getMajorById(Long id);
 
-    public Major getMajorById(Long id){
-        return majorDao.selectByPrimaryKey(id);
-    }
-
-    public Major getMajorByName(String name){
-        Example example = new Example(Major.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("majorName",name);
-        return majorDao.selectByExample(example).get(0);
-    }
+    public Major getMajorByName(String name);
 
 }
