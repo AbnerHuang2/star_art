@@ -50,6 +50,13 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!--spring整合activemq-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+            <version>2.2.2.RELEASE</version>
+        </dependency>
+
         <!--spring aop-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
