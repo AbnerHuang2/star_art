@@ -38,6 +38,17 @@ public class NewsService {
 
     String Sort_default = "news_createtime desc";
 
+    public PageInfo<News> getAllNewsByPage(String name,int page,int pageSize){
+        PageHelper.startPage(page,pageSize);
+        Example example = new Example(News.class);
+        if(!StringUtils.isEmpty(name)){
+            example.createCriteria().andLike("newsTitle","%"+name+"%");
+        }
+        List<News> list = newsDao.selectByExample(example);
+        PageInfo<News> newsTitle = new PageInfo<>(list);
+        return newsTitle;
+    }
+
     public PageInfo<NewsVo> getNews(String sort,int page,int pageSize){
         PageHelper.startPage(page,pageSize);
         Example example = new Example(News.class);

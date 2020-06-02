@@ -61,6 +61,16 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/adminLogin")
+    public CommonResult<User> adminLogin(String email,String password){
+        User user = userService.adminLogin(email,password);
+        if(user!=null){
+            return CommonResult.success(user,"登录成功");
+        }else{
+            return CommonResult.failed("登录失败");
+        }
+    }
+
     @RequestMapping("/logout")
     public CommonResult<String> logout(){
         //思路：让token失效

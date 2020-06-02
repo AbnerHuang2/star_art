@@ -33,4 +33,18 @@ public class ProductController {
         }
         return CommonResult.failed("获取作品失败");
     }
+
+    @RequestMapping("/getAllProducts")
+    public CommonResult<PageInfo<Product>> getAllProducts(String name,
+                                                          @RequestParam(defaultValue = "0") int page,
+                                                          @RequestParam(defaultValue = "8")int pageSize,
+                                                       Long majorId, Long directId,String tag){
+        PageInfo<Product> pageInfo = null;
+        pageInfo = productService.getAllProductsByPage(name,page,pageSize);
+        if(pageInfo!=null){
+            return CommonResult.success(pageInfo,"分页获取所有作品成功");
+        }
+        return CommonResult.failed("分页获取所有作品失败");
+    }
+
 }

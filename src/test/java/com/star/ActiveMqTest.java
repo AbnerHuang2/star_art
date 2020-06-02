@@ -13,7 +13,7 @@ import java.util.Map;
  * @author Abner
  * @createDate 2020/5/22
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ActiveMqTest {
 
     @Autowired
@@ -23,7 +23,7 @@ public class ActiveMqTest {
     void contextLoads(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("actor",1);
-        likeProvider.sendMsg(jsonObject);
+        likeProvider.sendMsg(jsonObject.toJSONString());
     }
 
 }

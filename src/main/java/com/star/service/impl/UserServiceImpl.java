@@ -1,6 +1,7 @@
 package com.star.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.star.constant.RoleConstant;
 import com.star.mapper.UserDao;
 import com.star.model.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -34,7 +36,7 @@ public class UserServiceImpl implements UserService {
     RedisUtil redisUtil;
 
     public void setDefault(User user){
-        user.setUserAvatarURL("http://pic4.zhimg.com/50/v2-425eefcba6d48b4def4032896ece331c_hd.jpg");
+        user.setUserAvatarURL("http://localhost:8010/getImage?name=head1.png");
     }
 
     @Override
@@ -66,9 +68,23 @@ public class UserServiceImpl implements UserService {
 
         return token;
     }
+
+    @Override
+    public User adminLogin(String email, String password) {
+        User user = getUserByEmail(email);
+        if(user!=null && user.getUserPassword().equals(StarUtil.MD5(password))){
+            if(user.getStatus()==RoleConstant.Role_Admin) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     @Override
     public int register(String email, String password){
         User user = new User();
+        user.setUserNickName("STAR_"+email.substring(0,email.indexOf(".")));
+        setDefault(user);
         user.setUserEmail(email);
         user.setUserPassword(StarUtil.MD5(password));
         user.setStatus(RoleConstant.Role_Student);
@@ -109,5 +125,25 @@ public class UserServiceImpl implements UserService {
             return res==1 ? user : null;
         }
         return null;
+    }
+
+    @Override
+    public PageInfo<User> getAllUserByPage(int page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        List<User> list = userDao.selectAll();
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        return  pageInfo;
+    }
+
+    @Override
+    public PageInfo<User> getNormalUserByPage(String name, int page, int pageSize) {
+        PageHelper.startPage(page,pageSize);
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("status",'1');
+        example.and().orLike("userName","%"+name+"%")
+                .orLike("userNickName","%"+name+"%");
+        List<User> list = userDao.selectByExample(example);
+        PageInfo<User> pageInfo = new PageInfo<>(list);
+        return  pageInfo;
     }
 }

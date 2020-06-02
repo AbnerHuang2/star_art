@@ -16,7 +16,7 @@ import java.util.Set;
  * @Author Abner
  * @CreateDate 2020/5/1
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RedisTest {
     @Autowired
     RedisUtil redisUtil;

@@ -37,6 +37,24 @@ public class CourseController {
         }
         return CommonResult.failed("获取课程失败");
     }
-    
+
+    @RequestMapping("/getSingleCourse")
+    public CommonResult<Course> getSingleCourse(Long courseId){
+        Course course = courseService.getCourseById(courseId);
+        if(course!=null){
+            return CommonResult.success(course,"获取课程成功");
+        }
+        return CommonResult.failed("获取课程失败");
+    }
+
+    @RequestMapping("/getAllCourses")
+    public CommonResult<PageInfo<Course>> getAllCourses(String name, @RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "8")int pageSize){
+        PageInfo<Course> pageInfo = null;
+        pageInfo = courseService.getAllCourseByPage(name,page,pageSize);
+        if(pageInfo!=null){
+            return CommonResult.success(pageInfo,"获取课程成功");
+        }
+        return CommonResult.failed("获取课程失败");
+    }
 
 }

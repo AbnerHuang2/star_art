@@ -12,7 +12,7 @@ import java.util.List;
  * @Author Abner
  * @CreateDate 2020/5/4
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RecommendTest {
 
     @Autowired

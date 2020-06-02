@@ -38,7 +38,7 @@ public interface CourseService {
 
     public HomeCourseResult setDefaultHomeCourseResult(int page, int pageSize);
 
-    public List<Course> getAllCourseByPage(int page,int pageSize);
+    public PageInfo<Course> getAllCourseByPage(String name,int page,int pageSize);
 
     public List<Course> getCourseBySort(String sort);
 

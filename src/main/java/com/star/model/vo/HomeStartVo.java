@@ -16,4 +16,6 @@ public class HomeStartVo {
     String imgUrl;
     String intro;
     JSONObject entity;
+    String to;  //跳转地址
+    JSONObject params;  //参数
 }

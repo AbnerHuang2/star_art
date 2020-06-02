@@ -16,12 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)//加上括号里面这一段解决websocket的ServerEndpoint注入问题
 class StarArtParentApplicationTests {
     @Autowired
     UserService userService;
@@ -64,6 +61,18 @@ class StarArtParentApplicationTests {
 
     @Autowired
     SelectCourseService selectCourseService;
+
+    @Autowired
+    MessageService messageService;
+
+    @Test
+    void testMessageService(){
+        Map<Long,String> map = messageService.getConversationMapByToId(2l);
+        System.out.println(map);
+
+//        PageInfo<Message> pageInfo = messageService.getMessageByConversionId("1_2",1,4);
+//        System.out.println(pageInfo);
+    }
 
     @Test
     void testSelectCourseService(){
@@ -154,7 +163,7 @@ class StarArtParentApplicationTests {
 //        User user = userService.getUserByEmail("1101964585@qq.com");
 //        System.out.println(user);
 
-        List<User> list = userService.getHotUsers(1,5);
+        PageInfo<User> list = userService.getNormalUserByPage("F",1,5);
         System.out.println(list);
     }
 

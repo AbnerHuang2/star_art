@@ -18,8 +18,8 @@ public class LikeProvider {
 
     private final String queue = "likeQueue";
 
-    public void sendMsg(Map map){
-        jmsMessagingTemplate.convertAndSend(queue,map);
+    public void sendMsg(String msg){
+        jmsMessagingTemplate.convertAndSend(queue,msg);
     }
 
 }

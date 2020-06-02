@@ -107,9 +107,15 @@ public class CourseServiceImpl implements CourseService {
         return homeCourseResult;
     }
 
-    public List<Course> getAllCourseByPage(int page,int pageSize){
+    public PageInfo<Course> getAllCourseByPage(String name,int page,int pageSize){
         PageHelper.startPage(page,pageSize);
-        return courseDao.selectAll();
+        Example example = new Example(Course.class);
+        if(!StringUtils.isEmpty(name)){
+            example.and().andLike("courseName","%"+name+"%");
+        }
+        List<Course> list = courseDao.selectByExample(example);
+        PageInfo<Course> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     public List<Course> getCourseBySort(String sort){

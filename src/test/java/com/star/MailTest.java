@@ -9,7 +9,7 @@ import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Map;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MailTest {
 
     @Autowired

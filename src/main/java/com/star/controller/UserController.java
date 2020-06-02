@@ -1,5 +1,6 @@
 package com.star.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.star.model.api.CommonResult;
 import com.star.model.entity.User;
 import com.star.service.UserService;
@@ -49,6 +50,26 @@ public class UserController {
             }
         }
         return CommonResult.failed("更新用户信息失败");
+    }
+
+    @RequestMapping("/getAllUsers")
+    public CommonResult<PageInfo<User>> getAllUsers(@RequestParam(defaultValue = "1") int page,
+                                                    @RequestParam(defaultValue = "8")int pageSize){
+        PageInfo<User> pageInfo = userService.getAllUserByPage(page,pageSize);
+        if(pageInfo!=null){
+            return CommonResult.success(pageInfo,"分页获取全部用户成功");
+        }
+        return CommonResult.failed("分页获取全部用户失败");
+    }
+    @RequestMapping("/getNormalUsers")
+    public CommonResult<PageInfo<User>> getNormalUsers(@RequestParam(defaultValue = "") String name,
+                                                       @RequestParam(defaultValue = "1") int page,
+                                                       @RequestParam(defaultValue = "8")int pageSize){
+        PageInfo<User> pageInfo = userService.getNormalUserByPage(name,page,pageSize);
+        if(pageInfo!=null){
+            return CommonResult.success(pageInfo,"分页获取普通用户成功");
+        }
+        return CommonResult.failed("分页获取普通用户失败");
     }
 
 }

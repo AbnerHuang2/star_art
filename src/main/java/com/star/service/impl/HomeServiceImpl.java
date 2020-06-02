@@ -55,6 +55,12 @@ public class HomeServiceImpl implements HomeService {
             JSONObject json = new JSONObject();
             json.put("entity",courseList.get(0));
             vo1.setEntity(json);
+
+            vo1.setTo("/courseDetail");
+            JSONObject params = new JSONObject();
+            params.put("courseId",courseList.get(0).getId());
+            vo1.setParams(params);
+
             list.add(vo1);
         }
         List<User> teacherList = teacherService.getTeachersBySort("userFansCount desc");
@@ -67,6 +73,11 @@ public class HomeServiceImpl implements HomeService {
             JSONObject json = new JSONObject();
             json.put("entity",teacherList.get(0));
             vo1.setEntity(json);
+
+            vo1.setTo("/person");
+            JSONObject params = new JSONObject();
+            params.put("id",teacherList.get(0).getId());
+            vo1.setParams(params);
 
             list.add(vo1);
         }
@@ -83,6 +94,10 @@ public class HomeServiceImpl implements HomeService {
             json.put("entity",productList.get(0));
             vo1.setEntity(json);
 
+            vo1.setTo("/product");
+            JSONObject params = new JSONObject();
+            vo1.setParams(params);
+
             list.add(vo1);
         }
 
@@ -96,6 +111,11 @@ public class HomeServiceImpl implements HomeService {
             JSONObject json = new JSONObject();
             json.put("entity",newsList.get(0));
             vo1.setEntity(json);
+
+            vo1.setTo("/newsDetail");
+            JSONObject params = new JSONObject();
+            params.put("newsId",newsList.get(0).getId());
+            vo1.setParams(params);
 
             list.add(vo1);
         }
