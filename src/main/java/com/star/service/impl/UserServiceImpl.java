@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     RedisUtil redisUtil;
 
     public void setDefault(User user){
-        user.setUserAvatarURL("http://localhost:8010/getImage?name=head1.png");
+        user.setUserAvatarURL("http://localhost:8010/file/getImage?name=head00.png");
     }
 
     @Override
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int register(String email, String password){
         User user = new User();
-        user.setUserNickName("STAR_"+email.substring(0,email.indexOf(".")));
+        user.setUserNickName("STAR_"+email.substring(0,email.indexOf("@")));
         setDefault(user);
         user.setUserEmail(email);
         user.setUserPassword(StarUtil.MD5(password));

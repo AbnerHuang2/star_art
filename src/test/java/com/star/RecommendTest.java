@@ -21,7 +21,7 @@ public class RecommendTest {
     @Test
     void testRecommandService(){
         //recommandService.getRecommend();
-        List<JSONObject> res = recommandService.getRecommendCourseByUid(1l,2,2);
+        List<JSONObject> res = recommandService.getRecommendCourseByUid(2l,1,2);
         System.out.println(res);
     }
 

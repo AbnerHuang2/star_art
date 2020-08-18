@@ -39,7 +39,7 @@ public class HomeServiceImpl implements HomeService {
 
         List<Course> courseList = null;
         if(hostHolder.getUser()!=null){
-            courseList = courseService.getRecommandCourses(hostHolder.getUser().getId(),1,1);
+            courseList = courseService.getRecommandCourses(hostHolder.getUser().getId(),1,2);
             if(courseList.size()<1){
                 courseList = courseService.getCourseBySort("(follow_num*2+comment_num*3) desc");
             }

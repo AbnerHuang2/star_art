@@ -59,7 +59,6 @@ public class CourseServiceImpl implements CourseService {
      * @return
      */
     @Override
-    @Cacheable(value = "homeCourses")
     public HomeCourseResult getHomeCourseResult(int page, int pageSize){
         User user = hostHolder.getUser();
         if(user==null){
@@ -82,6 +81,7 @@ public class CourseServiceImpl implements CourseService {
         List<Integer> directList = StarUtil.getDirects(directs);
         //添加美术专业推荐
         Major art = majorService.getMajorByName("美术专业");
+        System.out.println("directList -- "+directList);
         artCourseList = getCourseByMajorAndDirectListAndPage(art.getId(),directList,page, pageSize);
         if(artCourseList.size()<pageSize){
             artCourseList.addAll(getCourseByMajorAndPage(1L,1,pageSize-musicCourseList.size()));
@@ -139,7 +139,7 @@ public class CourseServiceImpl implements CourseService {
      */
     @Override
     @Cacheable("courseResult")
-    public PageInfo<Course> getCourses(Long majorId, Long directId, String tag, int page, int pageSize){
+    public PageInfo<Course> getCourses(Long majorId, Long directId, String tag, String name, int page, int pageSize){
         PageHelper.startPage(page,pageSize);
         Example example = new Example(Course.class);
         Example.Criteria criteria = example.createCriteria();
@@ -152,7 +152,9 @@ public class CourseServiceImpl implements CourseService {
         if(tag!=null){
             criteria.andLike("tags","%"+tag+"%");
         }
-
+        if(name!=null){
+            criteria.andLike("courseName","%"+name+"%");
+        }
         example.setOrderByClause(Sort_hot);
 
         List<Course> list = courseDao.selectByExample(example);

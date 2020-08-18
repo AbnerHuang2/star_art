@@ -21,6 +21,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		
 		registry.addInterceptor(passportInterceptor);
 		//访问/msg/*的时候就需要登录了
-		registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/msg/*");
+		registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/message/*");
 	}
 }

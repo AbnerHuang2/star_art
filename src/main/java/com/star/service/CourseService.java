@@ -42,7 +42,7 @@ public interface CourseService {
 
     public List<Course> getCourseBySort(String sort);
 
-    public PageInfo<Course> getCourses(Long majorId, Long directId, String tag, int page, int pageSize);
+    public PageInfo<Course> getCourses(Long majorId, Long directId, String tag,String name, int page, int pageSize);
 
     /**
      * 利用协同过滤算法推荐课程

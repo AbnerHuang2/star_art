@@ -6,6 +6,7 @@ import com.star.model.entity.Course;
 import com.star.model.vo.HomeCourseResult;
 import com.star.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +30,15 @@ public class CourseController {
     }
 
     @RequestMapping("/getCourses")
-    public CommonResult<PageInfo<Course>> getCourses(Long majorId, Long directId, String tag, @RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "8")int pageSize){
+    public CommonResult<PageInfo<Course>> getCourses(Long majorId, Long directId, String tag,
+                                                     @RequestParam(defaultValue = "")String name,
+                                                     @RequestParam(defaultValue = "1")int page,
+                                                     @RequestParam(defaultValue = "8")int pageSize){
+        if(StringUtils.isEmpty(name)){
+            name = null;
+        }
         PageInfo<Course> pageInfo = null;
-        pageInfo = courseService.getCourses(majorId,directId,tag,page,pageSize);
+        pageInfo = courseService.getCourses(majorId,directId,tag,name,page,pageSize);
         if(pageInfo!=null){
             return CommonResult.success(pageInfo,"获取课程成功");
         }

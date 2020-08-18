@@ -17,49 +17,11 @@ import java.util.List;
  * @author Abner
  * @createDate 2020/5/15
  */
-@Service
-public class SelectCourseService {
-    @Resource
-    SelectCourseDao selectCourseDao;
 
-    @Autowired
-    CourseService courseService;
+public interface SelectCourseService {
 
-    public PageInfo<SelectCourseVo> getSelectCourseByUserId(Long userId,int page,int pageSize){
-        PageHelper.startPage(page,pageSize);
-        Example example = new Example(SelectCourse.class);
-        example.createCriteria().andEqualTo("userId",userId);
-        List<SelectCourse> list = selectCourseDao.selectByExample(example);
-        PageInfo<SelectCourse> scPageInfo = new PageInfo<>(list);
+    public PageInfo<SelectCourseVo> getSelectCourseByUserId(Long userId, int page, int pageSize);
+    public boolean hasLearn(Long userId,Long courseId);
 
-        List<SelectCourseVo> vos = new ArrayList<>();
-        for(SelectCourse sc : list){
-            SelectCourseVo vo = new SelectCourseVo();
-            vo.setSelectCourse(sc);
-            vo.setCourse(courseService.getCourseById(sc.getCourseId()));
-
-            vos.add(vo);
-        }
-        PageInfo<SelectCourseVo> pageInfo = new PageInfo<>(vos);
-        pageInfo.setPages(scPageInfo.getPages());
-        pageInfo.setPageNum(scPageInfo.getPageNum());
-        pageInfo.setPageSize(scPageInfo.getPageSize());
-        pageInfo.setTotal(scPageInfo.getTotal());
-
-        return pageInfo;
-    }
-
-    public boolean hasLearn(Long userId,Long courseId){
-        if(userId==null || courseId==null){
-            return false;
-        }
-        Example example = new Example(SelectCourse.class);
-        example.createCriteria()
-                .andEqualTo("userId",userId)
-                .andEqualTo("courseId",courseId);
-
-        SelectCourse selectCourse = selectCourseDao.selectOneByExample(example);
-        return selectCourse==null ? false : true;
-    }
 
 }
