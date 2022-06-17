@@ -21,7 +21,7 @@
         <druid.version>1.1.9</druid.version>
         <mysql-connector.version>8.0.15</mysql-connector.version>
         <swagger2.version>2.7.0</swagger2.version>
-        <fastjson.version>1.2.68</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <javax.mail.version>1.6.2</javax.mail.version>
         <spring-boot-mail.version>2.2.5.RELEASE</spring-boot-mail.version>
         <mahout.version>0.9</mahout.version>
